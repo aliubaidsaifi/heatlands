@@ -447,19 +447,37 @@
 .cta-inner { position: relative; z-index: 2; }
 .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 
-.cta-contacts { display: grid; gap: 0; margin-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--line-light); }
-@media (min-width: 800px) { .cta-contacts { grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line-light); border-top: 0; } }
+.cta-contacts {
+  display: grid;
+  gap: 0;
+  margin-top: clamp(40px, 5vw, 64px);
+  border-top: 1px solid var(--line-light);
+}
+
 .cta-contact {
-  background: var(--ink);
-  padding: 22px 0;
+  padding: 20px 0;
   border-bottom: 1px solid var(--line-light);
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-@media (min-width: 800px) { .cta-contact { padding: 24px 24px 24px 0; border-bottom: 0; } }
-.cta-contact .label { color: var(--bronze); }
-.cta-contact a, .cta-contact span:last-child { font-size: 1rem; }
+
+@media (min-width: 800px) {
+  .cta-contacts { grid-template-columns: repeat(3, 1fr); }
+
+  .cta-contact {
+    padding: 26px 32px;
+    border-bottom: 0;
+    border-left: 1px solid var(--line-light);
+  }
+
+  /* The first column keeps the section's left edge, so it lines up with the
+     heading and the buttons above it. */
+  .cta-contact:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
 
 /* --------------------------------------------------------------------------
    FOOTER

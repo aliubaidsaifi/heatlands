@@ -1,7 +1,7 @@
 
 export const media = {
   // Homepage hero — full screen, the first thing anyone sees.
-  hero: '/images/01-hero.webp',
+  hero: '/images/hero.webp',
 
   about: {
     // Home "About" split + About page. Portrait crop (4:5).

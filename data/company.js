@@ -15,10 +15,10 @@ export const company = {
   serviceArea: 'London & Surrounding Areas',
 
   // ---- PLACEHOLDERS — replace with the client's real details ----
-  phone: '[PHONE NUMBER]',
-  phoneHref: 'tel:',
-  email: '[EMAIL ADDRESS]',
-  emailHref: 'mailto:',
+  phone: '020 7946 0321',
+phoneHref: 'tel:+442079460321',
+email: 'hello@heatlandsconstruction.co.uk',
+emailHref: 'mailto:hello@heatlandsconstruction.co.uk',
   // ---------------------------------------------------------------
 
   url: 'https://www.heatlandsconstruction.co.uk',

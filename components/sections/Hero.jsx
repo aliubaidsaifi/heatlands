@@ -9,43 +9,30 @@ import { media } from '@/data/media';
 const ease = [0.16, 1, 0.3, 1];
 
 /**
- * Hero
+ * Hero — split, not full-bleed.
  *
- * One image, one headline, two actions. The entrance is a short stagger —
- * the image settles out of a slow scale while the type steps in beneath it.
- * Nothing loops, nothing parallaxes; it plays once and gets out of the way.
+ * The type sits on its own paper panel and the photograph holds the other
+ * half. Nothing is overlaid, so the headline never has to fight the image
+ * and the image never has to be dark enough to carry white text. That is
+ * the whole reason for the split: it means almost any decent photograph
+ * works here, instead of only the rare one that happens to have a quiet
+ * area exactly where the words go.
+ *
+ * It also removes the scrim entirely — no gradient sitting between the
+ * viewer and the work.
  */
 export default function Hero() {
   const reduced = useReducedMotion();
 
   const step = (i) => ({
-    initial: reduced ? false : { opacity: 0, y: 22 },
+    initial: reduced ? false : { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.8, delay: 0.3 + i * 0.08, ease },
+    transition: { duration: 0.75, delay: 0.15 + i * 0.07, ease },
   });
 
   return (
     <section className="hero">
-      <motion.div
-        className="hero-img"
-        initial={reduced ? false : { scale: 1.08, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.4, ease }}
-      >
-        <Image
-          src={media.hero}
-          alt="A contemporary London residential property"
-          fill
-          priority
-          quality={82}
-          sizes="100vw"
-          style={{ objectFit: 'cover' }}
-        />
-      </motion.div>
-
-      <div className="veil" />
-
-      <div className="shell hero-inner">
+      <div className="hero-copy">
         <motion.p className="hero-eyebrow" {...step(0)}>
           Construction &amp; Property Renovation
         </motion.p>
@@ -64,10 +51,10 @@ export default function Hero() {
         </motion.p>
 
         <motion.div className="hero-actions" {...step(4)}>
-          <Link href="/contact" className="btn btn-light">
+          <Link href="/contact" className="btn btn-primary">
             Get a Free Quote
           </Link>
-          <a href={company.phoneHref} className="btn btn-outline-light">
+          <a href={company.phoneHref} className="btn btn-outline">
             Talk to Our Team
           </a>
         </motion.div>
@@ -77,6 +64,25 @@ export default function Hero() {
           {company.serviceArea}
         </motion.div>
       </div>
+
+      {/* The image reveals by unmasking rather than fading — it wipes up from
+          the bottom, which reads as something being built. */}
+      <motion.div
+        className="hero-media"
+        initial={reduced ? false : { clipPath: 'inset(100% 0 0 0)' }}
+        animate={{ clipPath: 'inset(0% 0 0 0)' }}
+        transition={{ duration: 1.1, ease }}
+      >
+        <Image
+          src={media.hero}
+          alt="A contemporary London residential property"
+          fill
+          priority
+          quality={82}
+          sizes="(max-width: 1000px) 100vw, 52vw"
+          style={{ objectFit: 'cover' }}
+        />
+      </motion.div>
     </section>
   );
 }

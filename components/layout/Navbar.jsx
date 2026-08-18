@@ -6,8 +6,17 @@ import { usePathname } from 'next/navigation';
 import { company, nav } from '@/data/company';
 import Image from 'next/image';
 
-
-export default function Navbar({ overHero = true }) {
+/**
+ * Navbar
+ *
+ * The tone follows what sits underneath. Inner pages open on a dark
+ * PageHero, so the bar starts white and inverts to charcoal once it
+ * compacts. The homepage hero is a pale split panel, so there the bar is
+ * charcoal on paper from the very start — white would be invisible on it.
+ *
+ * Passing `overHero` explicitly overrides the route-based default.
+ */
+export default function Navbar({ overHero }) {
   const [compact, setCompact] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -32,24 +41,25 @@ export default function Navbar({ overHero = true }) {
     };
   }, [open]);
 
-  const tone = overHero ? 'nav-over' : 'nav-plain';
+  // Homepage opens on paper; every other page opens on a dark banner.
+  const isOverDark = overHero ?? pathname !== '/';
+  const tone = isOverDark ? 'nav-over' : 'nav-plain';
 
   return (
     <>
       <header className={`nav ${tone} ${compact ? 'nav-compact' : ''}`}>
         <div className="shell nav-inner">
-         <Link href="/" className="logo" aria-label={`${company.name} — home`}>
-  <Image
-    src="/logo.png"
-    alt={company.name}
-    width={200}
-    height={52}
-    priority
-    unoptimized
-    className="logo-img logo-light"
-  />
-
-</Link>
+          <Link href="/" className="logo" aria-label={`${company.name} — home`}>
+            <Image
+              src="/logo.png"
+              alt={company.name}
+              width={200}
+              height={52}
+              priority
+              unoptimized
+              className="logo-img"
+            />
+          </Link>
 
           <nav className="nav-links" aria-label="Primary">
             {nav.map((item) => (
